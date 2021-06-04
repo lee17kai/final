@@ -2,8 +2,7 @@ const firebase = require("firebase/app")
 require("firebase/firestore")
 
 const firebaseConfig = {
-//Nick's firebase info
-// Nick/Group firebase info
+//Group firebase info
 apiKey: "AIzaSyC2fn9VA6Y1Bfplu43HUNDb6lV1cUq5AuU",
 authDomain: "final-49027.firebaseapp.com",
 projectId: "final-49027",

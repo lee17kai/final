@@ -1,5 +1,4 @@
 //Nick Code
-
 // standard event listener for Firebase auth... use instead of DOMContentLoaded
 firebase.auth().onAuthStateChanged(async function(user) {
   // document.addEventListener(`DOMContentLoaded`, async function(event) {
@@ -35,7 +34,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
         signInOptions: [
           firebase.auth.EmailAuthProvider.PROVIDER_ID
         ],
-        signInSuccessUrl: `index.html` // where to go after we're done signing up/in
+        signInSuccessUrl: `main.html` // where to go after we're done signing up/in
       }
   
       // Starts FirebaseUI Auth
