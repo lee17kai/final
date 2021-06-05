@@ -4,12 +4,11 @@ let firebase = require(`./firebase`)
 // /.netlify/functions/courses?courseNumber=KIEI-451
 exports.handler = async function(event) {
 
-  // get the fitness provider name and activity type being requested
-  let providerName = event.queryStringParameters.providerName
+  // get the activity type being requested
   let activity = event.queryStringParameters.activity
-  
+
   // establish a connection to firebase in memory
-  let db = firebase.firestore()
+  let db = firebase.firestore() 
 
   // ask Firebase for the course that corresponds to the course number, wait for the response
   let courseQuery = await db.collection('courses').where(`courseNumber`, `==`, courseNumber).get()
