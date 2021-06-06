@@ -1,4 +1,4 @@
-// Goal: Provide a function to create a new reservation in Firebase
+// Goal: Provide a function to create a new user in Firebase
 
 // allows us to use firebase
 let firebase = require(`./firebase`)
