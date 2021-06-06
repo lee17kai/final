@@ -21,10 +21,6 @@ exports.handler = async function(event) {
     activity: activity,
     fitnessProviders: []
   }
-  //create counters to track total number of providers found and sum of ratings
-  let countProviders = 0
-  let sumProviderRatings = 0
-
   // loop through the providers
   for(let providerIndex = 0; providerIndex < providers.length; providerIndex++){
     // store the current provider in memory
@@ -41,7 +37,6 @@ exports.handler = async function(event) {
       providerName: providerData.providerName,
       activity: providerData.activity,
       address: providerData.address,
-      avgRating: "",
       description: providerData.description,
       level: providerData.level,
       reservations: [],
@@ -122,9 +117,6 @@ exports.handler = async function(event) {
       providerObject.reservations.push(reservationObject)
 
     }
-
-    //add to counter
-    countProviders = countProviders + 1
 
     // add the provider Object to the return value
     returnValue.fitnessProviders.push(providerObject)
