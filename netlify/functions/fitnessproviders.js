@@ -1,7 +1,7 @@
 // allows us to use firebase
 let firebase = require(`./firebase`)
 
-// /.netlify/functions/fitnessProviders?activity=Boxing
+// /.netlify/functions/fitnessproviders?activity=Boxing
 exports.handler = async function(event) {
 
   // get the provider activity
@@ -27,12 +27,14 @@ exports.handler = async function(event) {
 
   // loop through the providers
   for(let providerIndex = 0; providerIndex < providers.length; providerIndex++){
+    // store the current provider in memory
+    let fitnessProviderTemp = providers[providerIndex]
 
     // get the document id of the provider
-    let fitnessProviderId = providers[providerIndex].id
+    let fitnessProviderId = fitnessProviderTemp.id
 
     // get the data from the provider
-    let providerData = fitnessProviderId.data()
+    let providerData = fitnessProviderTemp.data()
 
     // create an object to be added to the return value of our lambda
     let providerObject = {
@@ -54,16 +56,19 @@ exports.handler = async function(event) {
 
     for(reservationIndex = 0; reservationIndex < reservations.length; reservationIndex++){
 
+      //store the current reservation in memory
+      let reservationTemp = reservations[reservationIndex]
+
       //get the document ID of the section
-      let reservationId = reservations[reservationIndex].id
+      let reservationId = reservationTemp.id
 
       //get the data from the section
-      reservationData = reservationId.data()
+      reservationData = reservationTemp.data()
 
       //create an object to be added to the return value
       let reservationObject = {
         providerName: "",
-        time: reservationData.time,
+        time: reservationData.time.toDate().toString(),
         customerList: []
       }
 
@@ -85,24 +90,22 @@ exports.handler = async function(event) {
 
       //loop through this array, turning the array of reservations into an array of customer objects
       for(customerIndex = 0; customerIndex < customers.length; customerIndex++){
-
+        //store current reservation in memory
+        let reservationTemp2 = customers[customerIndex]
         //get document ID of the reservation
-        let reservationId2 = customers[customerIndex].id
+        let reservationId2 = reservationTemp2.id
 
         // get the data for this reservation
-        let reservationData2 = reservationId2.data()
+        let reservationData2 = reservationTemp2.data()
 
         // get the customer data for this reservation
         let customerId = reservationData2.customerId
 
         //ask firebase to go through the users and find the customer 
-        let customersQuery = await db.collection(`users`).where(`customerId`, `==`, customerId).get()
+        let customersQuery = await db.collection(`users`).doc(customerId).get()
 
         // get first document from this array
-        let customer = customersQuery.docs[0]
-
-        //get the data for this customer
-        let customerData = customer.data()
+        let customerData = customersQuery.data()
 
         // create a customer object
         let customerObject = {
