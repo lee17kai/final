@@ -13,7 +13,7 @@ exports.handler = async function(event) {
 
   // create a new post, wait for it to return
   await db.collection('reservations').add({
-    customerId: userName,
+    customerId: ,
     fitnessProviderId: ,
     time: ,
   })
