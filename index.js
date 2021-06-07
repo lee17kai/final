@@ -81,34 +81,53 @@ firebase.auth().onAuthStateChanged(async function(user) {
               </div>
             </div>`
             )
+
+
+
+            // **Start new stuff**
+
+            // actual Reserve button (html)
+            searchResultsElement.insertAdjacentHTML(`beforeend`,
+            `<div class="text-center">
+            <form>
+              <input type="text" name="fitnessProviderId" id="fitnessProviderId" placeholder="type the wrod - confirm" class="border border-gray-400 rounded p-2 mr-1">
+              <button class="get-reserve border bg-green-500 text-white rounded px-4 py-2">Reserve?</button>
+            </form>
+            </div>`
+            )
+
+            // Reserve button input
+              // get reference to the search fitness providers button
+             let getReserveButton = document.querySelector(`.get-reserve`)
+
+              // When the "get fitness providers" button is clicked:
+              getReserveButton.addEventListener(`click`, async function(event){
+
+                //Ignore the default behavior of the button
+                event.preventDefault()
+                //get a reference to the element containing the user-entered info for "Reserve? button"
+                let reservationInput = document.querySelector(`#fitnessProviderId`)
+                //get the element's value
+                let reservationValue = reservationInput.value
+                console.log(`${reservationValue}`)
+             })
+
+             // **End new stuff**
+
+
+
+
+
+          //the For loop "}"
           }
-          
+        //the If "}" 
         }
+      //the eventListener "})" 
       })
 
 
 
 
-
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
       // CREATE RESERVATION BUTTON
       // get reference to the newly created create reservation button
 
