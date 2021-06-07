@@ -54,10 +54,38 @@ firebase.auth().onAuthStateChanged(async function(user) {
           let json = await response.json()
 
           // - Write the json-formatted data to the JavaScript console
-          console.log(json)
+          console.log(json)         
 
+          // get a reference to the discover element
+          let searchResultsElement = document.querySelector(`.search-results`)
+
+          //Use the given formatting and plug in the header
+          forecastList.innerHTML = `
+          <div class="text-center space-y-8">
+            <div class="font-bold text-3xl">Search results for "${activity}"</div>
+          </div>`
           
+          //store the interpreted fitness providers array
+          let providerResults = json.fitnessProviders
 
+          //Loop through the found fitness providers
+          for(let providerIndex = 0; providerIndex < providerResults.length; providerIndex++){
+            // Create variable to store each provider in memory
+            let tempProvider = providerResults[]
+            
+            //Now add in the list formatting and plug in values for maxtemp, min temp, date, icon, condition, etc.
+            forecastList.insertAdjacentHTML(`beforeend`, 
+            `<div class="text-center space-y-8">
+              <div>
+                <img src="https:${tempForecast.day.condition.icon}" class="mx-auto">
+                <h1 class="text-2xl text-bold text-gray-500">${tempForecast.date}</h1>
+                <h2 class="text-xl">High ${tempForecast.day.maxtemp_f}° – Low ${tempForecast.day.mintemp_f}°</h2>
+                <p class="text-gray-500">${tempForecast.day.condition.text}</h1>
+              </div>
+            </div>`
+            )
+          }
+          
         }
       })
 
