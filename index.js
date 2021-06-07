@@ -51,16 +51,13 @@ firebase.auth().onAuthStateChanged(async function(user) {
           let response = await fetch(url)
 
           // - Ask for the json-formatted data from the response, wait for the data, store it in memory
-          let json = await response.json()
-
-          // - Write the json-formatted data to the JavaScript console
-          console.log(json)         
+          let json = await response.json()       
 
           // get a reference to the discover element
           let searchResultsElement = document.querySelector(`.search-results`)
 
           //Use the given formatting and plug in the header
-          forecastList.innerHTML = `
+          searchResultsElement.innerHTML = `
           <div class="text-center space-y-8">
             <div class="font-bold text-3xl">Search results for "${activity}"</div>
           </div>`
@@ -71,10 +68,10 @@ firebase.auth().onAuthStateChanged(async function(user) {
           //Loop through the found fitness providers
           for(let providerIndex = 0; providerIndex < providerResults.length; providerIndex++){
             // Create variable to store each provider in memory
-            let tempProvider = providerResults[]
+            let tempProvider = providerResults[providerIndex]
             
             //Now add in the list formatting and plug in values for maxtemp, min temp, date, icon, condition, etc.
-            forecastList.insertAdjacentHTML(`beforeend`, 
+            searchResultsElement.insertAdjacentHTML(`beforeend`, 
             `<div class="text-center space-y-8">
               <div>
                 <h1 class="text-2xl text-bold text-gray-500">${tempProvider.providerName}</h1>
