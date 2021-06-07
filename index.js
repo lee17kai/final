@@ -86,6 +86,29 @@ firebase.auth().onAuthStateChanged(async function(user) {
         }
       })
 
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
       // CREATE RESERVATION BUTTON
       // get reference to the newly created create reservation button
 
