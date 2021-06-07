@@ -24,7 +24,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
         // redirect to the home page
         document.location.href = `index.html`
       })
-      // Build the URL for our posts API
+      // BUILD THE URL FOR OUR API
       let url = `/.netlify/functions/fitnessproviders?activity=${activity}`
 
       // Fetch the url, wait for a response, store the response in memory
@@ -36,15 +36,18 @@ firebase.auth().onAuthStateChanged(async function(user) {
       // Write the json-formatted data to the console in Chrome
       console.log(json)
 
-      // SEARCH BUTTON
-      
+
+    // SEARCH BUTTON
+      // get reference to the search fitness providers button
+      let getFitnessProvidersButton = document.querySelector(``)
+
       // CREATE RESERVATION BUTTON
       // get reference to the newly created create reservation button
 
       //event listener for the post comment button
       
-      // CREATE USER BUTTON
-
+      // CREATE Profile/REGISTRATION BUTTON. Need to take the UID and 
+      // get reference to the 
 
     } else {
       // user is not logged-in, so show login
