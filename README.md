@@ -2,6 +2,8 @@
 
 ### KIEI-451 Spring 2021
 
-Begin by cloning this project and running `npm install`, then replace the Firebase configuration in both `/netlify/functions/firebase.js` and `index.html` with your own Firebase configuration object.
+Kai Lee, Nick Mc Dermott, Valeria Cerball
 
-The content of this file is to be replaced by information on your final project, including the live Internet URL.
+K-Fitness is an application that lets users explore the best fitness centers in Chicago. 
+
+Live app link: 
