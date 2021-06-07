@@ -77,10 +77,10 @@ firebase.auth().onAuthStateChanged(async function(user) {
             forecastList.insertAdjacentHTML(`beforeend`, 
             `<div class="text-center space-y-8">
               <div>
-                <img src="https:${tempForecast.day.condition.icon}" class="mx-auto">
-                <h1 class="text-2xl text-bold text-gray-500">${tempForecast.date}</h1>
-                <h2 class="text-xl">High ${tempForecast.day.maxtemp_f}° – Low ${tempForecast.day.mintemp_f}°</h2>
-                <p class="text-gray-500">${tempForecast.day.condition.text}</h1>
+                <h1 class="text-2xl text-bold text-gray-500">${tempProvider.providerName}</h1>
+                <p class="text-gray-500">${tempProvider.address}</p>
+                <p class="text-gray-500">${tempProvider.description}</p>
+                <p class="text-gray-500">${tempProvider.level}</p>
               </div>
             </div>`
             )
