@@ -61,7 +61,7 @@
   
 //             console.log(restaurant.visitors.length)
   
-//             //stuck...
+//           
 
         
 //         })
