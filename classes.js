@@ -13,7 +13,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       // handle the my reservations button click
       myReservationsButton.addEventListener(`click`, function(event) {
   
-      // redirect to the my restaurants page
+      // redirect to the my reservations page
       document.location.href = `myreservations.html`
       })
   
@@ -61,71 +61,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
   
             console.log(restaurant.visitors.length)
   
-            for (let visitorIndex=0; visitorIndex < restaurant.visitors.length; visitorIndex++) {
-              // create an Object to be added to the visitor Array of the post
-              let userUidCurrent = restaurant.visitors[visitorIndex].userUid
-              
-              // add the object to the visitor
-              userUidArray.push(userUidCurrent)
-            }
-  
-            console.log(userUidArray)
-            
-            if (userUidArray.includes(user.uid)) {
-            // Create some markup using the post data, insert into the "posts" element
-            restaurantsDiv.insertAdjacentHTML(`beforeend`,
-            `<div class="md:w-1/3 p-8">
-              <div class="md:mx-0 mx-4 mt-8">
-                <span class="text-blue-500 font-bold text-xl">${restaurant.name}</span>
-              </div>
-              <div class="my-2">
-                <img src="${restaurant.imageURL}" class="w-full">
-              </div>
-              <div class="md:mx-0 mx-4">
-              <span>${restaurant.cuisine}</span>
-              </div>
-              <div class="md:mx-0 mx-4">
-                <span>${restaurant.neighborhood}</span>
-              </div>
-              <div class="md:mx-0 mx-4">
-              <span>${restaurant.rating}/5 Stars</span>
-            </div> 
-            <div id = "visited-${restaurantId}" class="text-blue-500 font-bold md:mx-0 mx-4">Visited</div> 
-            </div>`)
-            } else {
-              restaurantsDiv.insertAdjacentHTML(`beforeend`,
-              `<div class="md:w-1/3 p-8">
-                <div class="md:mx-0 mx-4 mt-8">
-                  <span class="text-blue-500 font-bold text-xl">${restaurant.name}</span>
-                </div>
-                <div class="my-2">
-                  <img src="${restaurant.imageURL}" class="w-full">
-                </div>
-                <div class="md:mx-0 mx-4">
-                <span>${restaurant.cuisine}</span>
-                </div>
-                <div class="md:mx-0 mx-4">
-                  <span>${restaurant.neighborhood}</span>
-                </div>
-                <div class="md:mx-0 mx-4">
-                <span>${restaurant.rating}/5 Stars</span>
-              </div> 
-              <button id = "visited-${restaurantId}" class="text-blue-500 font-bold md:mx-0 mx-4">Mark as Visited</button> 
-              </div>`)
-  
-              // get a reference to the Reserve button
-              let visitButton = document.querySelector(`#visited-${restaurantId}`)
-  
-              // event handler for the visit button
-              visitButton.addEventListener(`click`, async function(event) {
-              // create the URL for our visit lambda function
-              let url = `/.netlify/functions/create-visit?userUid=${userUid}&restaurantId=${restaurantId}`
-  
-              // fetch the URL, wait for the response, store the response in memory
-              let response = await fetch(url)
-  
-              // refresh the page
-              location.reload()
+            //stuck...
+
         
         })
             
