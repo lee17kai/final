@@ -30,7 +30,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       })
   
       // Build the URL for our classes API
-      let url = `/.netlify/functions/fitnessProviders`
+      let url = `/.netlify/functions/fitnessproviders`
   
       // Fetch the url, wait for a response, store the response in memory
       let response = await fetch(url)
