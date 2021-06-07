@@ -24,27 +24,50 @@ firebase.auth().onAuthStateChanged(async function(user) {
         // redirect to the home page
         document.location.href = `index.html`
       })
-      // Build the URL for our posts API
-      let url = `/.netlify/functions/fitnessproviders?activity=${activity}`
 
-      // Fetch the url, wait for a response, store the response in memory
-      let response = await fetch(url)
+    // SEARCH BUTTON
+      // get reference to the search fitness providers button
+      let getFitnessProvidersButton = document.querySelector(`.get-fitness-providers`)
 
-      // Ask for the json-formatted data from the response, wait for the data, store it in memory
-      let json = await response.json()
+      // When the "get fitness providers" button is clicked:
+      getFitnessProvidersButton.addEventListener(`click`, async function(event){
 
-      // Write the json-formatted data to the console in Chrome
-      console.log(json)
+        //Ignore the default behavior of the button
+        event.preventDefault()
 
-      // SEARCH BUTTON
-      
+        //get a reference to the element containing the user-entered activity
+        let activityInput = document.querySelector(`#activity`)
+
+        //get the user-entered location and days from the element's value
+        let activity = activityInput.value
+
+        //Check to see if the user entered anything; if so:
+        if(activity.length > 0){
+
+          // construct the url to call the API
+          let url = `/.netlify/functions/fitnessproviders?activity=${activity}`
+
+          // - Fetch the url, wait for a response, store the response in memory
+          let response = await fetch(url)
+
+          // - Ask for the json-formatted data from the response, wait for the data, store it in memory
+          let json = await response.json()
+
+          // - Write the json-formatted data to the JavaScript console
+          console.log(json)
+
+          
+
+        }
+      })
+
       // CREATE RESERVATION BUTTON
       // get reference to the newly created create reservation button
 
       //event listener for the post comment button
       
-      // CREATE USER BUTTON
-
+      // CREATE Profile/REGISTRATION BUTTON. Need to take the UID and 
+      // get reference to the 
 
     } else {
       // user is not logged-in, so show login
