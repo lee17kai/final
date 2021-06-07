@@ -39,7 +39,7 @@ exports.handler = async function(event) {
       address: providerData.address,
       description: providerData.description,
       level: providerData.level,
-      reservations: [],
+      reservations: []
     }
 
     //now we gotta create the array of reservation objects
@@ -48,6 +48,7 @@ exports.handler = async function(event) {
 
     // get the documents from the query .docs turns courseQuery into array
     let reservations = reservationsQuery.docs
+
 
     for(reservationIndex = 0; reservationIndex < reservations.length; reservationIndex++){
 
@@ -67,57 +68,55 @@ exports.handler = async function(event) {
         customerList: []
       }
 
-      //ask firebase for the provider for this reservation
-      let reservationProviderQuery = await db.collection(`fitnessProviders`).doc(reservationData.fitnessProviderId).get()
+        //ask firebase for the provider for this reservation
+        let reservationProviderQuery = await db.collection(`fitnessProviders`).doc(reservationData.fitnessProviderId).get()
 
-      //get the data from the returned document
-      let reservationProvider = reservationProviderQuery.data()
+        //get the data from the returned document
+        let reservationProvider = reservationProviderQuery.data()
 
-      // add the provider name from the fitness provider to the reservation object
-      reservationObject.providerName = reservationProvider.providerName
+        // add the provider name from the fitness provider to the reservation object
+        reservationObject.providerName = reservationProvider.providerName
 
-      //ok now another loop for the customers array within each reservation!
-      // ask Firebase for the list of reservations that match our current provider and current reservation time
-      let reservationTimeQuery = await db.collection('reservations').where(`fitnessProviderId`, `==`, fitnessProviderId).where(`time`, `==`, reservationData.time).get()
+        //ok now another loop for the customers array within each reservation!
+        // ask Firebase for the list of reservations that match our current provider and current reservation time
+        let reservationTimeQuery = await db.collection('reservations').where(`fitnessProviderId`, `==`, fitnessProviderId).where(`time`, `==`, reservationData.time).get()
 
-      // turn this query into an array of reservations that represents a list of customers that signed up for each rservation
-      let customers = reservationTimeQuery.docs
+        // turn this query into an array of reservations that represents a list of customers that signed up for each rservation
+        let customers = reservationTimeQuery.docs
 
-      //loop through this array, turning the array of reservations into an array of customer objects
-      for(customerIndex = 0; customerIndex < customers.length; customerIndex++){
-        //store current reservation in memory
-        let reservationTemp2 = customers[customerIndex]
-        //get document ID of the reservation
-        let reservationId2 = reservationTemp2.id
+        //loop through this array, turning the array of reservations into an array of customer objects
+        for(customerIndex = 0; customerIndex < customers.length; customerIndex++){
+          //store current reservation in memory
+          let reservationTemp2 = customers[customerIndex]
+          //get document ID of the reservation
+          let reservationId2 = reservationTemp2.id
 
-        // get the data for this reservation
-        let reservationData2 = reservationTemp2.data()
+          // get the data for this reservation
+          let reservationData2 = reservationTemp2.data()
 
-        // get the customer data for this reservation
-        let customerId = reservationData2.customerId
+          // get the customer data for this reservation
+          let customerId = reservationData2.customerId
 
-        //ask firebase to go through the users and find the customer 
-        let customersQuery = await db.collection(`users`).doc(customerId).get()
+          //ask firebase to go through the users and find the customer 
+          let customersQuery = await db.collection(`users`).doc(customerId).get()
 
-        // get first document from this array
-        let customerData = customersQuery.data()
+          // get first document from this array
+          let customerData = customersQuery.data()
 
-        // create a customer object
-        let customerObject = {
-          name: customerData.userName,
-          email: customerData.userEmail,
-          password: customerData.userPassword
+          // create a customer object
+          let customerObject = {
+            name: customerData.userName,
+            email: customerData.userEmail,
+          }
+
+          //add customer object to the reservation object
+          reservationObject.customerList.push(customerObject)
         }
-
-        //add customer object to the reservation object
-        reservationObject.customerList.push(customerObject)
-      }
+      
 
       //add reservation object to the provider object
       providerObject.reservations.push(reservationObject)
-
     }
-
     // add the provider Object to the return value
     returnValue.fitnessProviders.push(providerObject)
   }

@@ -5,20 +5,18 @@ let firebase = require(`./firebase`)
 
 exports.handler = async function(event) {
   // get the querystring parameters and store in memory
-  let userEmail = event.queryStringParameters.userEmail
-  let userName = event.queryStringParameters.userName
-  let userPassword = event.queryStringParameters.userPassword
+  let currentUser = firebase.auth().currentUser
+  let userEmail = currentUser.email
+  let userName = currentUser.name
 
   // establish a connection to firebase in memory
   let db = firebase.firestore()
 
-  // create a new reservation, wait for it to return
+  // create a new user, wait for it to return
   let newUser = await db.collection('users').add({
     userEmail: userEmail,
-    userName: userName,
-    userPassword: userPassword
+    userName: userName
   })
-
 
   return {
     statusCode: 200
