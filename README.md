@@ -4,6 +4,6 @@
 
 Kai Lee, Nick Mc Dermott, Valeria Cerball
 
-K-Fitness is an application that lets users explore the best fitness centers in Chicago. 
+K-Fitness is an application that lets users explore and reserve the best fitness centers in Evanston. 
 
-Live app link: 
+Live app link: https://wonderful-tesla-ec04bb.netlify.app
