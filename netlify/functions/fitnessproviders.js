@@ -35,6 +35,7 @@ exports.handler = async function(event) {
     // create an object to be added to the return value of our lambda
     let providerObject = {
       providerName: providerData.providerName,
+      fitnessProviderId: fitnessProviderId,
       activity: providerData.activity,
       address: providerData.address,
       description: providerData.description,

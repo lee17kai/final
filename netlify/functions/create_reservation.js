@@ -5,9 +5,9 @@ let firebase = require(`./firebase`)
 
 exports.handler = async function(event) {
   // get the querystring parameters and store in memory
+  let time = event.queryStringParameters.time
   let customerId = event.queryStringParameters.customerId
   let fitnessProviderId = event.queryStringParameters.fitnessProviderId
-  let time = event.queryStringParameters.time
 
   // establish a connection to firebase in memory
   let db = firebase.firestore()

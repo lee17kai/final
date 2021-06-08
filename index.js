@@ -70,11 +70,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
             // Create variable to store each provider in memory
             let tempProvider = providerResults[providerIndex]
             
-            //Now add in the list formatting and plug in values for maxtemp, min temp, date, icon, condition, etc.
+            //Now add in the list formatting and plug in values etc.
             searchResultsElement.insertAdjacentHTML(`beforeend`, 
             `<div class="text-center space-y-8">
               <div>
-                <h1 class="text-2xl text-bold text-gray-500">${tempProvider.providerName}</h1>
+                <h1 class="text-2xl text-bold text-gray-700">${tempProvider.providerName}</h1>
                 <p class="text-gray-500">${tempProvider.address}</p>
                 <p class="text-gray-500">${tempProvider.description}</p>
                 <p class="text-gray-500">${tempProvider.level}</p>
@@ -88,9 +88,17 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
             // actual Reserve button (html)
             searchResultsElement.insertAdjacentHTML(`beforeend`,
-            `<div class="text-center">
+            `<div class="dropdown text-center">
             <form>
-              <input type="text" name="fitnessProviderId" id="fitnessProviderId" placeholder="type the wrod - confirm" class="border border-gray-400 rounded p-2 mr-1">
+              <input list="timeOptions" type="text" name="times" id="times" placeholder="Select a time" class="border border-gray-400 rounded p-2 mr-1">
+              <datalist id="timeOptions">
+                <option value="5:00 AM - 6:00 AM">
+                <option value="6:00 AM - 7:00 AM">
+                <option value="7:00 AM - 8:00 AM">
+                <option value="6:00 PM - 7:00 PM">
+                <option value="7:00 PM - 8:00 PM">
+                <option value="8:00 PM - 9:00 PM">
+              </datalist>
               <button class="get-reserve border bg-green-500 text-white rounded px-4 py-2">Reserve?</button>
             </form>
             </div>`
@@ -106,10 +114,26 @@ firebase.auth().onAuthStateChanged(async function(user) {
                 //Ignore the default behavior of the button
                 event.preventDefault()
                 //get a reference to the element containing the user-entered info for "Reserve? button"
-                let reservationInput = document.querySelector(`#fitnessProviderId`)
+                let reservationInput = document.querySelector(`#times`)
                 //get the element's value
                 let reservationValue = reservationInput.value
-                console.log(`${reservationValue}`)
+
+                //get the current fitness provider Id
+                let fitnessProviderValue = tempProvider.fitnessProviderId
+                console.log(fitnessProviderValue)
+
+                //get current customer id
+                let customerIdValue = firebase.auth().currentUser.uid  
+                
+                //Build the URL for our reservations API
+                let url = `/.netlify/functions/create_reservation?time=${reservationValue}&customerId=${customerIdValue}&fitnessProviderId=${fitnessProviderValue}`
+                
+                // Fetch the url, wait for a response, store the response in memory. 
+                let response = fetch(url)
+
+                // refresh the page
+                location.reload()                      
+
              })
 
              // **End new stuff**
@@ -124,17 +148,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
         }
       //the eventListener "})" 
       })
-
-
-
-
-      // CREATE RESERVATION BUTTON
-      // get reference to the newly created create reservation button
-
-      //event listener for the post comment button
-      
-      // CREATE Profile/REGISTRATION BUTTON. Need to take the UID and 
-      // get reference to the 
 
     } else {
       // user is not logged-in, so show login
