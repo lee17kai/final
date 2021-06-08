@@ -32,6 +32,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       // get reference to the search fitness providers button
       let getFitnessProvidersButton = document.querySelector(`.get-fitness-providers`)
 
+      
       // When the "get fitness providers" button is clicked:
       getFitnessProvidersButton.addEventListener(`click`, async function(event){
 
