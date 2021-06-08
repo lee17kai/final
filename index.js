@@ -24,8 +24,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
         // redirect to the home page
         document.location.href = `index.html`
       })
+    // VIEW MY RESERVATIONS
+      //create an array of reservations
+      let currentUserReservations = []
 
-    // SEARCH BUTTON
+    // SEARCH & RESERVE
       // get reference to the search fitness providers button
       let getFitnessProvidersButton = document.querySelector(`.get-fitness-providers`)
 
@@ -120,10 +123,16 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
                 //get the current fitness provider Id
                 let fitnessProviderValue = tempProvider.fitnessProviderId
-                console.log(fitnessProviderValue)
 
                 //get current customer id
                 let customerIdValue = firebase.auth().currentUser.uid  
+
+                // create an object for the reservation
+                let createdReservation = {
+                  customerName: firebase.auth().currentUser.displayName
+                  gymName: tempProvider.providerName
+                  time: reservationValue
+                }
                 
                 //Build the URL for our reservations API
                 let url = `/.netlify/functions/create_reservation?time=${reservationValue}&customerId=${customerIdValue}&fitnessProviderId=${fitnessProviderValue}`
@@ -132,10 +141,12 @@ firebase.auth().onAuthStateChanged(async function(user) {
                 let response = fetch(url)
 
                 // refresh the page
-                location.reload()                      
-
+                location.reload()        
+                
+                // add the reservation to my list of reservations
+                currentUserReservations.push(createdReservation)
              })
-
+             console.log(currentUserReservations)
              // **End new stuff**
 
 
