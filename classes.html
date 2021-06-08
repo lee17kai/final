@@ -94,9 +94,14 @@
         
       <div class="p-8 space-y-8">
         <div class="my-16">
-          <div class="text-center">
+          <div class="dropdown text-center">
             <form>
-              <input type="text" name="activity" id="activity" placeholder="Yoga, Boxing or HIIT?" class="border border-gray-400 rounded p-2 mr-1">
+              <input list="activityList" type="text" name="activity" id="activity" placeholder="Yoga, Boxing or HIIT?" class="border border-gray-400 rounded p-2 mr-1">
+                <datalist id="activityList">
+                  <option value="Yoga">
+                  <option value="Boxing">
+                  <option value="HIIT">
+                </datalist>
               <button class="get-fitness-providers border bg-green-500 text-white rounded px-4 py-2">Search Fitness Providers!</button>
             </form>
           </div>
