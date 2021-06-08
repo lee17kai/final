@@ -24,9 +24,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
         // redirect to the home page
         document.location.href = `index.html`
       })
-    // VIEW MY RESERVATIONS
-      //create an array of reservations
-      let currentUserReservations = []
 
     // SEARCH & RESERVE
       // get reference to the search fitness providers button
