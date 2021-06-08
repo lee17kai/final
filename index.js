@@ -129,12 +129,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
                 let customerIdValue = firebase.auth().currentUser.uid  
 
                 // create an object for the reservation
-                let createdReservation = {
-                  customerName: firebase.auth().currentUser.displayName
-                  gymName: tempProvider.providerName
+                let createdResObject = {
+                  customerName: firebase.auth().currentUser.displayName,
+                  providerName: tempProvider.providerName,
                   time: reservationValue
                 }
-                
                 //Build the URL for our reservations API
                 let url = `/.netlify/functions/create_reservation?time=${reservationValue}&customerId=${customerIdValue}&fitnessProviderId=${fitnessProviderValue}`
                 
@@ -147,10 +146,10 @@ firebase.auth().onAuthStateChanged(async function(user) {
                 // add the reservation to my list of reservations
                 currentUserReservations.push(createdReservation)
              })
-             console.log(currentUserReservations)
+
              // **End new stuff**
 
-
+             console.log(currentUserReservations)
 
 
 
